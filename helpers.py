@@ -30,6 +30,10 @@ class Market:
     def get_human_support_price(self):
         return self.get_support_price() / 1e9
 
+    # ETH per CMT
+    def get_withdraw_price(self):
+        return self.reserve / self.market_total
+
     # Units is ETH!
     def support(self, offer_eth):
         offer = toWei(offer_eth, 'ETH')
@@ -51,7 +55,7 @@ class Market:
         
     def log(self):
         support_price = round(self.get_human_support_price(), 4)
-        withdraw_price = round(self.reserve / self.market_total, 4)
+        withdraw_price = round(self.get_withdraw_price(), 4)
               
         print(f"{round(fromWei(self.market_total, 'CMT'), 1)} CMT")
         print(f"{round(fromWei(self.reserve, 'ETH'), 1)} ETH")
