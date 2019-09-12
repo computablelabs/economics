@@ -21,6 +21,7 @@ class Market:
             setattr(self, key, value)
         self.reserve = 0 # total Ether in wei
         self.market_total = 0 # total CMT in wei
+        self.reserve_payment = 100 - self.maker_payment - self.backend_payment
 
     # Note units returned is ETH-wei per billion CMT-wei
     def get_support_price(self):
@@ -52,6 +53,16 @@ class Market:
         
         self.market_total -= amount
         self.reserve -= withdraw_proceeds
+
+    # simulate some data being listed
+    def list(self):
+        self.market_total += self.list_reward
+
+    def buy(self, megabytes):
+        _bytes = megabytes * 1e6
+        cost = self.cost_per_byte * _bytes
+        reserve_share = cost * (self.reserve_payment/100)
+        self.reserve += reserve_share
         
     def log(self):
         support_price = round(self.get_human_support_price(), 4)
