@@ -14,6 +14,16 @@ def toWei(x, units):
 def fromWei(x, units):
     return x / unitMap[units]
 
+class UsdEthConverter:
+    def __init__(self, usdPerEth):
+        self.usdPerEth = usdPerEth
+
+    def toEth(self, usd):
+        return usd/self.usdPerEth
+
+    def fromEth(self, eth):
+        return eth*self.usdPerEth
+
 class Market:
     # pass params as dictionary
     def __init__(self, params):
