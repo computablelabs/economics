@@ -43,6 +43,14 @@ class Market:
     def get_support_price(self):
         return self.price_floor + ((self.spread * self.reserve * 1e9) // (100 * self.market_total))
 
+    def report(self):
+        return {
+            'fixed_term': self.price_floor,
+            'var_term': ((self.spread * self.reserve * 1e9) // (100 * self.market_total)),
+            'numerator': self.spread * self.reserve * 1e9,
+            'denominator': 100 * self.market_total,
+        }
+
     # Human readable support price in ETH per CMT
     def get_human_support_price(self):
         return self.get_support_price() / 1e9
